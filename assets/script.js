@@ -4,6 +4,8 @@ var today = document.getElementById('today');
 var display = document.getElementById('display');
 var card = document.querySelectorAll('.card');
 var quoteEl = document.getElementById('quote');
+var searchEl = document.getElementById('search');
+var searchHistory = [];
 
 var APIKey = '94f1fc415316d4290d1bcf565d7ea27a';
 
@@ -17,6 +19,7 @@ var weekday = [
     moment().add(6, 'd').format('ddd MMM Do'),
 ];
 
+// sets background image and displays weather forecast
 function displayWeather(data) {
     display.children[0].textContent = data.city.name;
 
@@ -32,7 +35,7 @@ function displayWeather(data) {
         card[i].children[2].children[2].textContent = '💦 ' + data.list[i].main.humidity + '%';
     }
 }
-
+// main fetch function, grabs data from openweathermap API 
 function getWeather() {
     var cityByName = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userInput.value + '&limit=1&appid=' + APIKey +'';
     fetch(cityByName)
@@ -81,3 +84,12 @@ window.addEventListener('load', function () {
         })
     }
 })
+
+// to do: implement into the rest of the function 
+function saveHistory(){
+    if (!userInput.value) {
+        return;
+    };
+    searchHistory.push(userInput);
+    localStorage.setItem('Search-History', JSON.stringify(searchHistory));
+}

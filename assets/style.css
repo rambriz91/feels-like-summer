@@ -24,6 +24,13 @@ h3 {
     font-size: 55px;
 }
 
+#quote {
+    font-size: 45px;
+    font-weight: 400;
+    font-family: Helvetica, sans-serif;
+    font-style: italic;
+}
+
 .card {
     border-radius: 3%;
     color: white;
@@ -52,4 +59,8 @@ h3 {
     background-color: rgba(8, 8, 216, 0.524);
     width: 200px;
     color: white;
+}
+
+.form-control {
+    font-size: 3rem;
 }
