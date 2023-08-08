@@ -3,6 +3,7 @@ var fetchBtn = document.getElementById('search-btn');
 var today = document.getElementById('today');
 var display = document.getElementById('display');
 var card = document.querySelectorAll('.card');
+var quoteEl = document.getElementById('quote');
 
 var APIKey = '94f1fc415316d4290d1bcf565d7ea27a';
 
@@ -55,6 +56,15 @@ function getWeather() {
 fetchBtn.addEventListener('click', getWeather);
 
 window.addEventListener('load', function () {
+    let yeRest = 'https://api.kanye.rest/';
+    fetch(yeRest)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            quoteEl.textContent = data.quote;
+            today.children[4].textContent = '~ Kanye Rest'
+        })
     if(navigator.geolocation) {
         this.navigator.geolocation.getCurrentPosition((position) => {
             let lon = position.coords.longitude;
