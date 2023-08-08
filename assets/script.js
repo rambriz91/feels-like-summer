@@ -7,15 +7,14 @@ var card = document.querySelectorAll('.card');
 var APIKey = '94f1fc415316d4290d1bcf565d7ea27a';
 
 var weekday = [
-    moment().format('dddd MMM Do'),
-    moment().add(1, 'd').format('dddd MMM Do'),
-    moment().add(2, 'd').format('dddd MMM Do'),
-    moment().add(3, 'd').format('dddd MMM Do'),
-    moment().add(4, 'd').format('dddd MMM Do'),
-    moment().add(5, 'd').format('dddd MMM Do'),
-    moment().add(6, 'd').format('dddd MMM Do'),
+    moment().format('ddd MMM Do'),
+    moment().add(1, 'd').format('ddd MMM Do'),
+    moment().add(2, 'd').format('ddd MMM Do'),
+    moment().add(3, 'd').format('ddd MMM Do'),
+    moment().add(4, 'd').format('ddd MMM Do'),
+    moment().add(5, 'd').format('ddd MMM Do'),
+    moment().add(6, 'd').format('ddd MMM Do'),
 ];
-
 
 function getWeather() {
     var cityByName = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userInput.value + '&limit=1&appid=' + APIKey +'';
@@ -33,14 +32,18 @@ function getWeather() {
                 })
                 .then(function (data) {
                     console.log(data);
+                    document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?landscape?` + userInput.value + `')`;
+                    document.body.style.backgroundRepeat = 'no-repeat';
+                    document.body.style.backgroundSize = 'cover';
+
                     display.children[0].textContent = data.city.name;
 
                     for (let i = 0; i < card.length; i++) {
                         card[i].children[0].textContent = weekday[i];
                         card[i].children[1].src = 'https://openweathermap.org/img/wn/' + data.list[i].weather[0].icon + '.png';
-                        card[i].children[2].children[0].textContent = 'Temp: ' + data.list[i].main.temp.toFixed(0) + '°F';
-                        card[i].children[2].children[1].textContent = 'Wind: ' + data.list[i].wind.speed.toFixed(0) + ' mph';
-                        card[i].children[2].children[2].textContent = 'Humidity: ' + data.list[i].main.humidity + '%';
+                        card[i].children[2].children[0].textContent = '🌡️ ' + data.list[i].main.temp.toFixed(0) + '°F';
+                        card[i].children[2].children[1].textContent = '🌬️ ' + data.list[i].wind.speed.toFixed(0) + ' mph';
+                        card[i].children[2].children[2].textContent = '💦 ' + data.list[i].main.humidity + '%';
                     }
 
                 })
@@ -48,3 +51,34 @@ function getWeather() {
 }
 
 fetchBtn.addEventListener('click', getWeather);
+
+window.addEventListener('load', function () {
+    if(navigator.geolocation) {
+        this.navigator.geolocation.getCurrentPosition((position) => {
+            let lon = position.coords.longitude;
+            let lat = position.coords.latitude;
+            let geoCodeAPI = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon +'&limit=1&appid=' + APIKey +'&units=imperial';
+
+            this.fetch(geoCodeAPI)
+                .then(function (response){
+                    return response.json()
+                })
+                .then(function (data){
+                    display.children[0].textContent = data.city.name;
+
+                    document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?landscape?` + userInput.value + `')`;
+                    document.body.style.backgroundRepeat = 'no-repeat';
+                    document.body.style.backgroundSize = 'cover';
+
+                    for (let i = 0; i < card.length; i++) {
+                        card[i].children[0].textContent = weekday[i];
+                        card[i].children[1].src = 'https://openweathermap.org/img/wn/' + data.list[i].weather[0].icon + '.png';
+                        card[i].children[2].children[0].textContent = '🌡️ ' + data.list[i].main.temp.toFixed(0) + '°F';
+                        card[i].children[2].children[1].textContent = '🌬️ ' + data.list[i].wind.speed.toFixed(0) + ' mph';
+                        card[i].children[2].children[2].textContent = '💦 ' + data.list[i].main.humidity + '%';
+                    }
+
+                })
+        })
+    }
+})
