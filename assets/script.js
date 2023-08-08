@@ -6,6 +6,16 @@ var card = document.querySelectorAll('.card');
 
 var APIKey = '94f1fc415316d4290d1bcf565d7ea27a';
 
+var weekday = [
+    moment().format('dddd MMM Do'),
+    moment().add(1, 'd').format('dddd MMM Do'),
+    moment().add(2, 'd').format('dddd MMM Do'),
+    moment().add(3, 'd').format('dddd MMM Do'),
+    moment().add(4, 'd').format('dddd MMM Do'),
+    moment().add(5, 'd').format('dddd MMM Do'),
+    moment().add(6, 'd').format('dddd MMM Do'),
+];
+
 
 function getWeather() {
     var cityByName = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userInput.value + '&limit=1&appid=' + APIKey +'';
@@ -26,7 +36,7 @@ function getWeather() {
                     display.children[0].textContent = data.city.name;
 
                     for (let i = 0; i < card.length; i++) {
-                        card[i].children[0].textContent = '';
+                        card[i].children[0].textContent = weekday[i];
                         card[i].children[1].src = 'https://openweathermap.org/img/wn/' + data.list[i].weather[0].icon + '.png';
                         card[i].children[2].children[0].textContent = 'Temp: ' + data.list[i].main.temp.toFixed(0) + '°F';
                         card[i].children[2].children[1].textContent = 'Wind: ' + data.list[i].wind.speed.toFixed(0) + ' mph';
