@@ -38,6 +38,7 @@ function displayWeather(data) {
 // main fetch function, grabs data from openweathermap API 
 function getWeather() {
     var cityByName = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userInput.value + '&limit=1&appid=' + APIKey +'';
+    saveHistory();
     fetch(cityByName)
         .then(function (response) {
             return response.json();
@@ -87,9 +88,18 @@ window.addEventListener('load', function () {
 
 // to do: implement into the rest of the function 
 function saveHistory(){
-    if (!userInput.value) {
+    let searchHistory = JSON.parse(localStorage.getItem('Search-History'));
+    if (!userInput.value || searchHistory.includes(userInput.value)) {
         return;
-    };
-    searchHistory.push(userInput);
+    } else {
+    searchHistory.push(userInput.value);
     localStorage.setItem('Search-History', JSON.stringify(searchHistory));
+}
+};
+
+function loadHistory() {
+    let searchHistory = JSON.parse(localStorage.getItem('Search-History'))
+if(searchHistory === null) {
+    return;
+}
 }
