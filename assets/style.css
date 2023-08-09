@@ -3,30 +3,26 @@ header {
     background-color: rgba(7, 7, 93, 0.524);
 }
 
-body {
-    font-size: 30px;
-}
-
 h1 {
     font-weight: 700;
-    font-size: 75px;
+    font-size: 30px;
 }
 
 h2 {
     font-weight: 700;
     color: white;
-    font-size: 65px;
+    font-size: 25px;
 }
 
 h3 {
     font-weight: 600;
     color: white;
-    font-size: 55px;
+    font-size: 20px;
 }
 
 #quote {
-    font-size: 45px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 300;
     font-family: Helvetica, sans-serif;
     font-style: italic;
 }
@@ -39,31 +35,31 @@ h3 {
 }
 
 .card img {
-    max-width: 200px;
-    min-height: 200px;
+    max-width: 100px;
+    min-height: 100px;
 }
 
 .card li {
-    font-size: 50px;
-    padding:5px;
+    font-size: 15px;
+    padding:2px;
     margin: auto;
 
 }
 
 .btn-primary {
     background-color: rgba(7, 7, 93, 0.524);
-    font-size: 45px;
+    font-size: 16px;
 }
 
 .dyn-btn {
     background-color: rgba(8, 8, 216, 0.524);
     color: white;
-    font-size: 40px;
-    margin: 10px;
-    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+    padding: 2px;
     width: 100%;
 }
 
 .form-control {
-    font-size: 3rem;
+    font-size: 1rem;
 }
