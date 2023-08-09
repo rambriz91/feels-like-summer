@@ -9,6 +9,7 @@ var searchHistory = [];
 
 var APIKey = '94f1fc415316d4290d1bcf565d7ea27a';
 
+//formats dates displayed on the .card divs.
 var weekday = [
     moment().format('ddd MMM Do'),
     moment().add(1, 'd').format('ddd MMM Do'),
@@ -34,7 +35,7 @@ function displayWeather(data) {
         card[i].children[2].children[1].textContent = '🌬️ ' + data.list[i].wind.speed.toFixed(0) + ' mph';
         card[i].children[2].children[2].textContent = '💦 ' + data.list[i].main.humidity + '%';
     }
-}
+};
 // main fetch function, grabs data from openweathermap API 
 function getWeather() {
     var cityByName = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userInput.value + '&limit=1&appid=' + APIKey +'';
@@ -55,10 +56,9 @@ function getWeather() {
                     displayWeather(data);
                 })
         })
-}
+};
 
-fetchBtn.addEventListener('click', getWeather);
-
+//prompts user to use current location and displays weather, loads a quote, and loads historybtns.
 window.addEventListener('load', function () {
     loadHistory();
     let yeRest = 'https://api.kanye.rest/';
@@ -85,9 +85,9 @@ window.addEventListener('load', function () {
                 })
         })
     }
-})
+});
 
-// to do: implement into the rest of the function 
+// saves search into local storage and omits repeated user inputs.
 function saveHistory(){
     let searchHistory = JSON.parse(localStorage.getItem('Search-History'));
     if (!userInput.value || searchHistory.includes(userInput.value)) {
@@ -99,6 +99,7 @@ function saveHistory(){
 }
 };
 
+// grabs local storage and appends buttons to the dashboard dynamically, which the user can then click to revisit a past search.
 function loadHistory() {
     let searchHistory = JSON.parse(localStorage.getItem('Search-History'))
 if(searchHistory === null) {
@@ -113,4 +114,13 @@ for (let i = 0; i < searchHistory.length; i++) {
     historyBtn.textContent = searchHistory[i];
     searchEl.append(historyBtn);
 }
-}
+};
+
+//listens for clicks on the search button
+fetchBtn.addEventListener('click', getWeather);
+
+//listens for clicks on historBtn elements and allows user to revisit past searches.
+searchEl.addEventListener('click', (event) => {
+    userInput.value = event.target.textContent;
+    getWeather();
+});
