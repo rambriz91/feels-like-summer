@@ -60,6 +60,7 @@ function getWeather() {
 fetchBtn.addEventListener('click', getWeather);
 
 window.addEventListener('load', function () {
+    loadHistory();
     let yeRest = 'https://api.kanye.rest/';
     fetch(yeRest)
         .then(function (response) {
@@ -94,6 +95,7 @@ function saveHistory(){
     } else {
     searchHistory.push(userInput.value);
     localStorage.setItem('Search-History', JSON.stringify(searchHistory));
+    loadHistory();
 }
 };
 
@@ -101,5 +103,14 @@ function loadHistory() {
     let searchHistory = JSON.parse(localStorage.getItem('Search-History'))
 if(searchHistory === null) {
     return;
+}
+while (searchEl.firstChild) {
+    searchEl.removeChild(searchEl.firstChild)
+};
+for (let i = 0; i < searchHistory.length; i++) {
+    let historyBtn = document.createElement('button');
+    historyBtn.setAttribute('class', 'dyn-btn');
+    historyBtn.textContent = searchHistory[i];
+    searchEl.append(historyBtn);
 }
 }
