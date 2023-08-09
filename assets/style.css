@@ -1,6 +1,6 @@
 
 header {
-    background-color: rgba(7, 7, 93, 0.524);
+    background: linear-gradient(rgba(46, 7, 93, 0.524),rgba(7, 7, 93, 0.524) );
 }
 
 h1 {
