@@ -89,7 +89,7 @@ window.addEventListener('load', function () {
 
 // saves search into local storage and omits repeated user inputs.
 function saveHistory(){
-    let searchHistory = JSON.parse(localStorage.getItem('Search-History'));
+    let searchHistory = JSON.parse(localStorage.getItem('Search-History')) || [];
     if (!userInput.value || searchHistory.includes(userInput.value)) {
         return;
     } else {
